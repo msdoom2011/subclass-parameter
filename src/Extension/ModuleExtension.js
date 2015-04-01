@@ -50,7 +50,10 @@ Subclass.Parameter.Extension.ModuleExtension = function() {
              * @type {Subclass.Parameter.ParameterManager}
              * @private
              */
-            this._parameterManager = new Subclass.Parameter.ParameterManager(this);
+            this._parameterManager = Subclass.Tools.createClassInstance(
+                Subclass.Parameter.ParameterManager,
+                this
+            );
         });
 
         eventManager.getEvent('onInitializeAfter').addListener(function(evt, module)
@@ -85,7 +88,7 @@ Subclass.Parameter.Extension.ModuleExtension = function() {
     //======================== REGISTERING EXTENSION ==========================
     //=========================================================================
 
-    Subclass.Module.onInitialize(function(evt, module)
+    Subclass.Module.onInitialize(function psix(evt, module)
     {
         Module = Subclass.Tools.buildClassConstructor(Module);
 
@@ -93,6 +96,8 @@ Subclass.Parameter.Extension.ModuleExtension = function() {
             Module.registerExtension(ModuleExtension);
         }
     });
+
+    console.log(Subclass.Module._initializers);
 
     return ModuleExtension;
 }();

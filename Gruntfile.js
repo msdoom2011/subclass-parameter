@@ -49,13 +49,6 @@ module.exports = function(grunt) {
                 cwd: "<%= config.lib.dir.src %>/",
                 expand: true
             },
-            release_demo: {
-                src: "**/*",
-                dest: "<%= config.demo.dir.release %>",
-                cwd: "<%= config.demo.dir.src %>/",
-                filter: "isFile",
-                expand: true
-            },
             release_readme: {
                 src: "README.md",
                 dest: "<%= config.release_dir %>/",
@@ -111,7 +104,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask("release", [
         "clean:release",
-        "copy:release_demo",
         "copy:release_readme",
         "concat:release",
         "uglify:release",

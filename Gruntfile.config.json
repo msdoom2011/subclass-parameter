@@ -5,11 +5,11 @@
   "lib": {
     "dir": {
       "src": "<%= config.src_dir %>",
-      "release": "<%= config.release_dir %>/lib"
+      "release": "<%= config.release_dir %>"
     },
     "files": [
-      "<%= config.lib.dir.src %>/ParameterManager.js",
-      "<%= config.lib.dir.src %>/**/*.js"
+      "ParameterManager.js",
+      "**/*.js"
     ],
     "files_release": {
       "normal": "<%= config.lib.dir.release %>/<%= config.name %>.js",
