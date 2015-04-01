@@ -1,0 +1,25 @@
+{
+  "name": "subclass-parameter",
+  "src_dir": "src",
+  "release_dir": "release",
+  "lib": {
+    "dir": {
+      "src": "<%= config.src_dir %>",
+      "release": "<%= config.release_dir %>/lib"
+    },
+    "files": [
+      "<%= config.lib.dir.src %>/ParameterManager.js",
+      "<%= config.lib.dir.src %>/**/*.js"
+    ],
+    "files_release": {
+      "normal": "<%= config.lib.dir.release %>/<%= config.name %>.js",
+      "minimized": "<%= config.lib.dir.release %>/<%= config.name %>.min.js"
+    }
+  },
+  "doc": {
+    "dir": "doc/api",
+    "files": [
+      "<%= config.lib.dir.src %>/**/*.js"
+    ]
+  }
+}
