@@ -19,7 +19,7 @@ Subclass.Parameter.Extension = {};
  * @throws {Error}
  *      Throws error if specified not valid module instance
  *
- * @param {Subclass.Module.Module} module
+ * @param {Subclass.Module} module
  *      The module instance
  */
 Subclass.Parameter.ParameterManager = (function()
@@ -29,11 +29,11 @@ Subclass.Parameter.ParameterManager = (function()
      */
     function ParameterManager(module)
     {
-        if (!module || !(module instanceof Subclass.Module.Module)) {
+        if (!module || !(module instanceof Subclass.Module)) {
             Subclass.Error.create('InvalidArgument')
                 .argument("the module instance", false)
                 .received(module)
-                .expected('an instance of "Subclass.Module.Module" class')
+                .expected('an instance of "Subclass.Module" class')
                 .apply()
             ;
         }
@@ -41,7 +41,7 @@ Subclass.Parameter.ParameterManager = (function()
         /**
          * Instance of module
          *
-         * @type {Subclass.Module.Module}
+         * @type {Subclass.Module}
          * @private
          */
         this._module = module;
@@ -61,7 +61,7 @@ Subclass.Parameter.ParameterManager = (function()
      * @method getModule
      * @memberOf Subclass.Parameter.ParameterManager.prototype
      *
-     * @returns {Subclass.Module.Module}
+     * @returns {Subclass.Module}
      */
     ParameterManager.prototype.getModule = function()
     {
@@ -83,7 +83,7 @@ Subclass.Parameter.ParameterManager = (function()
     ParameterManager.prototype.getParameters = function(privateParameters)
     {
         var mainModule = this.getModule();
-        var moduleManager = mainModule.getModuleManager();
+        var moduleManager = mainModule.getModuleStorage();
         var parameters = {};
         var $this = this;
 

@@ -21,5 +21,9 @@
     "files": [
       "<%= config.lib.dir.src %>/**/*.js"
     ]
+  },
+  "vendors": {
+    "dir": "vendors",
+    "files": "**/*.js"
   }
 }

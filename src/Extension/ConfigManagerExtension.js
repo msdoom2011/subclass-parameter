@@ -103,7 +103,7 @@ Subclass.Parameter.Extension.ConfigManagerExtension = function() {
     //======================== REGISTERING EXTENSION ==========================
     //=========================================================================
 
-    Subclass.Module.onInitialize(function(evt, module)
+    Subclass.Module.onInitializeBefore(function(evt, module)
     {
         ConfigManager = Subclass.Tools.buildClassConstructor(ConfigManager);
 

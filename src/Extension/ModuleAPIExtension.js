@@ -90,7 +90,7 @@ Subclass.Parameter.Extension.ModuleAPIExtension = function() {
     //======================== REGISTERING EXTENSION ==========================
     //=========================================================================
 
-    Subclass.Module.onInitialize(function(evt, module)
+    Subclass.Module.onInitializeBefore(function(evt, module)
     {
         ModuleAPI = Subclass.Tools.buildClassConstructor(ModuleAPI);
 

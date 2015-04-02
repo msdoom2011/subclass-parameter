@@ -87,8 +87,12 @@ module.exports = function(grunt) {
             release: {
                 files: [{
                     src: [
-                        "<%= config.lib.files_release.minimized %>",
-                        "tests/**/*.js"
+                        "vendors/subclass.js",
+                        "release/subclass-parameter.min.js",
+                        "tests/app/app.js",
+                        "tests/app/**/*.js",
+                        "tests/main.js",
+                        "tests/*.js"
                     ]
                 }]
             }
@@ -107,7 +111,7 @@ module.exports = function(grunt) {
         "copy:release_readme",
         "concat:release",
         "uglify:release",
-        //"karma:release"
+        "karma:release"
     ]);
 
     grunt.registerTask("doc", [
