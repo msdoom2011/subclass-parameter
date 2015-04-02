@@ -77,9 +77,23 @@ Subclass.Parameter.Extension.ModuleAPIExtension = function() {
      * @method getParameter
      * @memberOf Subclass.ModuleAPI.prototype
      */
-    ModuleAPI.prototype.getParameter = function(parameterName)
+    ModuleAPI.prototype.getParameter = function()
     {
         return this.getModule().getParameterManager().getParameter.apply(
+            this.getModule().getParameterManager(),
+            arguments
+        );
+    };
+
+    /**
+     * The same as the {@link Subclass.Parameter.ParameterManager#issetParameter}
+     *
+     * @method issetParameter
+     * @memberOf Subclass.ModuleAPI.prototype
+     */
+    ModuleAPI.prototype.issetParameter = function()
+    {
+        return this.getModule().getParameterManager().issetParameter.apply(
             this.getModule().getParameterManager(),
             arguments
         );
