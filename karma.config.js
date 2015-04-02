@@ -22,10 +22,9 @@ module.exports = function(config) {
       "src/**/*.js",
 
       // Tests
-      "tests/app/app.js",
-      "tests/app/**/*.js",
+      "tests/app.js",
       "tests/main.js",
-      "tests/*.js"
+      "tests/test.js"
     ],
 
 
