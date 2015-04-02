@@ -83,7 +83,7 @@ Subclass.Parameter.Extension.ModuleExtension = function() {
     //======================== REGISTERING EXTENSION ==========================
     //=========================================================================
 
-    Subclass.Module.onInitializeBefore(function psix(evt, module)
+    Subclass.Module.onInitializeBefore(function(evt, module)
     {
         Module = Subclass.Tools.buildClassConstructor(Module);
 
