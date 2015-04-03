@@ -1,3 +1,11 @@
+
+describe("Checking SubclassJS initialization", function() {
+
+    it ("", function() {
+        expect(Subclass.issetPlugin('SubclassParameter')).toBe(true);
+    });
+});
+
 describe("Checking parameters", function() {
 
     it ("existence", function() {
