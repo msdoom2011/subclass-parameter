@@ -1,4 +1,4 @@
-var app = Subclass.createModule("app", {
+var app = Subclass.createModule("app", ['appFirstPlugin'], {
     parameters: {
         mode: "dev",
         foo: true,

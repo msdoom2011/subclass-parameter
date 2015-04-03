@@ -89,6 +89,10 @@ module.exports = function(grunt) {
                     src: [
                         "vendors/subclass.js",
                         "release/subclass-parameter.min.js",
+                        "tests/plugs/app-first-plugin.js",
+                        "tests/plugs/app-forth-plugin.js",
+                        "tests/plugs/app-third-plugin.js",
+                        "tests/plugs/app-second-plugin.js",
                         "tests/app.js",
                         "tests/main.js",
                         "tests/*.js"

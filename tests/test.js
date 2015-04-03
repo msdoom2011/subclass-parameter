@@ -7,15 +7,17 @@ describe("Checking parameters", function() {
         expect(app.issetParameter('param1')).toBe(true);
         expect(app.issetParameter('param2')).toBe(true);
         expect(app.issetParameter('param3')).toBe(true);
+        expect(app.issetParameter('forth')).toBe(true);
     });
 
     it ("values", function() {
-        expect(app.getParameter('mode')).toBe('dev');
-        expect(app.getParameter('foo')).toBe(true);
-        expect(app.getParameter('bar')).toBe(10);
+        expect(app.getParameter('mode')).toBe('prod');
+        expect(app.getParameter('foo')).toBe(false);
+        expect(app.getParameter('bar')).toBe(30);
         expect(app.getParameter('param1')).toBe(10);
         expect(app.getParameter('param2')).toBe(20);
         expect(app.getParameter('param3')).toBe(35);
+        expect(app.getParameter('forth')).toBe(true);
     });
 
     it ("not allowed actions", function() {
