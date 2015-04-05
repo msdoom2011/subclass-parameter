@@ -78,9 +78,13 @@ Subclass.Parameter.ParameterManager = (function()
      *      If specified true it returns parameters only from current module
      *      without parameters from its plug-in modules
      *
+     * @param {boolean} [withParentParameters=true]
+     *      Should or not will be returned the parameters from the parent
+     *      modules (it is actual if the current module is a plug-in)
+     *
      * @returns {Object}
      */
-    ParameterManager.prototype.getParameters = function(privateParameters)
+    ParameterManager.prototype.getParameters = function(privateParameters, withParentParameters)
     {
         var mainModule = this.getModule();
         var moduleManager = mainModule.getModuleStorage();
@@ -90,17 +94,28 @@ Subclass.Parameter.ParameterManager = (function()
         if (privateParameters !== true) {
             privateParameters = false;
         }
-        if (privateParameters) {
+        if (withParentParameters !== false) {
+            withParentParameters = true;
+        }
+
+        // Returning parameters from current module with parameters from its parent modules
+
+        if (withParentParameters && !mainModule.isRoot() && arguments[2] != mainModule) {
+            return mainModule.getRoot().getParameterManager().getParameters(false, false, mainModule);
+
+            // Returning parameters from current module (without its plug-ins)
+
+        } else if (privateParameters) {
             return this._parameters;
         }
 
         moduleManager.eachModule(function(module) {
             if (module == mainModule) {
-                Subclass.Tools.extend(parameters, $this._parameters);
+                Subclass.Tools.extend(parameters, $this.getParameters(true, false));
                 return;
             }
             var moduleParameterManager = module.getParameterManager();
-            var moduleParameters = moduleParameterManager.getParameters();
+            var moduleParameters = moduleParameterManager.getParameters(false, false);
 
             Subclass.Tools.extend(
                 parameters,
@@ -163,7 +178,7 @@ Subclass.Parameter.ParameterManager = (function()
             Subclass.Error.create('Can\'t change parameter value when module is ready.');
         }
         if (!this.issetParameter(paramName)) {
-            Subclass.Error.create('Parameter with name "' + paramName + '" is not exists.');
+            Subclass.Error.create('Parameter with name "' + paramName + '" not exists.');
         }
         this._parameters[paramName].setValue(paramValue);
     };
@@ -185,7 +200,7 @@ Subclass.Parameter.ParameterManager = (function()
     ParameterManager.prototype.getParameter = function(paramName)
     {
         if (!this.issetParameter(paramName)) {
-            Subclass.Error.create('Parameter with name "' + paramName + '" is not exists.');
+            Subclass.Error.create('Parameter with name "' + paramName + '" not exists.');
         }
         return this.getParameters()[paramName].getValue();
     };
