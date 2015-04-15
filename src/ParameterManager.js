@@ -100,7 +100,7 @@ Subclass.Parameter.ParameterManager = (function()
 
         // Returning parameters from current module with parameters from its parent modules
 
-        if (withParentParameters && !mainModule.isRoot() && arguments[2] != mainModule) {
+        if (!privateParameters && withParentParameters && !mainModule.isRoot() && arguments[2] != mainModule) {
             return mainModule.getRoot().getParameterManager().getParameters(false, false, mainModule);
 
             // Returning parameters from current module (without its plug-ins)
@@ -124,6 +124,53 @@ Subclass.Parameter.ParameterManager = (function()
         });
 
         return parameters;
+    };
+
+    /**
+     * Returns module names where is defined parameter with specified name.<br /><br />
+     *
+     * @method getParameterLocations
+     * @memberOf Subclass.Parameter.ParameterManager.prototype
+     *
+     * @param {string} parameterName
+     *      The name of interesting parameter
+     *
+     * @returns {string[]}
+     */
+    ParameterManager.prototype.getParameterLocations = function(parameterName)
+    {
+        var mainModule = this.getModule().getRoot();
+        var locations = [];
+
+        if (arguments[1]) {
+            mainModule = arguments[1];
+        }
+        var moduleStorage = mainModule.getModuleStorage();
+
+        moduleStorage.eachModule(function(module) {
+            var parameterManager = module.getParameterManager();
+
+            if (parameterManager.issetParameter(parameterName, true)) {
+                locations.push(module.getName());
+            }
+            if (module == mainModule) {
+                return;
+            }
+            if (module.hasPlugins()) {
+                var pluginModuleStorage = module.getModuleStorage();
+                var plugins = pluginModuleStorage.getPlugins();
+
+                for (var i = 0; i < plugins.length; i++) {
+                    var subPlugin = plugins[i];
+                    var subPluginManager = subPlugin.getParameterManager();
+                    var subPluginLocations = subPluginManager.getParameterLocations(parameterName, subPlugin);
+
+                    locations = locations.concat(subPluginLocations);
+                }
+            }
+        });
+
+        return locations;
     };
 
     /**
@@ -153,6 +200,51 @@ Subclass.Parameter.ParameterManager = (function()
             paramName,
             paramValue
         );
+    };
+
+    /**
+     * Renames parameter with old name to the new one
+     *
+     * @method renameParameter
+     * @memberOf Subclass.Parameter.ParameterManager.prototype
+     *
+     * @param {string} nameOld
+     *      The old parameter name
+     *
+     * @param {string} nameNew
+     *      The new parameter name
+     */
+    ParameterManager.prototype.renameParameter = function(nameOld, nameNew)
+    {
+        if (!this.issetParameter(nameOld)) {
+            Subclass.Error.create('Trying to rename non existent parameter "' + nameOld + '".');
+        }
+        if (!nameNew || typeof nameNew != 'string') {
+            Subclass.Error.create('InvalidError')
+                .argument('the new parameter name', false)
+                .expected('a string')
+                .received(nameNew)
+                .apply()
+            ;
+        }
+        var moduleNames = this.getParameterLocations(nameOld);
+
+        for (var i = 0; i < moduleNames.length; i++) {
+            var module = Subclass.getModule(moduleNames[i]);
+            var parameterManager = module.getParameterManager();
+            var parameters = parameterManager.getParameters(true);
+            var parameter = parameters[nameOld];
+
+            if (!parameter) {
+                Subclass.Error.create(
+                    'The work of method ' +
+                    '"Subclass.Parameter.ParameterManager#getParameterLocations" is incorrect.'
+                );
+            }
+            delete parameters[nameOld];
+            parameters[nameNew] = parameter;
+            parameter.setName(nameNew);
+        }
     };
 
     /**

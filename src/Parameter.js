@@ -6,9 +6,6 @@
  * Instance of current class holds information about parameter:
  * its name and value.
  *
- * @throws {Error}
- *      Throws error if parameter name was missed or is not a string
- *
  * @param {string} parameterName
  *      The name of the creating parameter
  *
@@ -22,22 +19,13 @@ Subclass.Parameter.Parameter = (function()
      */
     function Parameter(parameterName, parameterValue)
     {
-        if (!parameterName || typeof parameterName != 'string') {
-            Subclass.Error.create('InvalidArgument')
-                .argument("the name of parameter", false)
-                .received(parameterName)
-                .expected('a string')
-                .apply()
-            ;
-        }
-
         /**
          * Parameter name
          *
          * @type {string}
          * @private
          */
-        this._name = parameterName;
+        this._name = null;
 
         /**
          * Parameter value
@@ -46,7 +34,37 @@ Subclass.Parameter.Parameter = (function()
          * @private
          */
         this._value = parameterValue;
+
+
+        // Initializing operations
+
+        this.setName(parameterName);
     }
+
+    /**
+     * Sets name of parameter.
+     *
+     * It is actual only at init stage. If you want to rename parameter use
+     * the {@link Subclass.Parameter.ParameterManager#renameParameter} method
+     *
+     * @throws {Error}
+     *      Throws error if specified invalid name of parameter
+     *
+     * @param {string} name
+     *      The name of parameter
+     */
+    Parameter.prototype.setName = function(name)
+    {
+        if (!name || typeof name != 'string') {
+            Subclass.Error.create('InvalidArgument')
+                .argument("the name of parameter", false)
+                .received(name)
+                .expected('a string')
+                .apply()
+            ;
+        }
+        this._name = name;
+    };
 
     /**
      * Returns parameter name
