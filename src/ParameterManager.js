@@ -196,7 +196,8 @@ Subclass.Parameter.ParameterManager = (function()
         if (this.getModule().isReady()) {
             Subclass.Error.create('Can\'t register new parameter when module is ready.');
         }
-        this._parameters[paramName] = new Subclass.Parameter.Parameter(
+        this._parameters[paramName] = Subclass.Tools.createClassInstance(
+            Subclass.Parameter.Parameter,
             paramName,
             paramValue
         );
