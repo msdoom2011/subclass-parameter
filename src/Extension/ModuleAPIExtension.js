@@ -44,15 +44,15 @@ Subclass.Parameter.Extension.ModuleAPIExtension = function() {
     };
 
     /**
-     * The same as the {@link Subclass.ConfigManager#setParameters}
+     * The same as the {@link Subclass.SettingsManager#setParameters}
      *
      * @method registerParameters
      * @memberOf Subclass.ModuleAPI.prototype
      */
     ModuleAPI.prototype.registerParameters = function()
     {
-        return this.getModule().getConfigManager().setParameters.apply(
-            this.getModule().getConfigManager(),
+        return this.getModule().getSettingsManager().setParameters.apply(
+            this.getModule().getSettingsManager(),
             arguments
         );
     };

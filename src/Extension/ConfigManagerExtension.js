@@ -2,27 +2,27 @@
  * @class
  * @constructor
  */
-Subclass.Parameter.Extension.ConfigManagerExtension = function() {
+Subclass.Parameter.Extension.SettingsManagerExtension = function() {
 
-    function ConfigManagerExtension(classInst)
+    function SettingsManagerExtension(classInst)
     {
-        ConfigManagerExtension.$parent.apply(this, arguments);
+        SettingsManagerExtension.$parent.apply(this, arguments);
     }
 
-    ConfigManagerExtension.$parent = Subclass.Extension;
+    SettingsManagerExtension.$parent = Subclass.Extension;
 
 
     //=========================================================================
     //========================== ADDING NEW METHODS ===========================
     //=========================================================================
 
-    var ConfigManager = Subclass.ConfigManager;
+    var SettingsManager = Subclass.SettingsManager;
 
     /**
      * Registers new parameters or redefines already existent with the same name.
      *
      * @method setParameters
-     * @memberOf Subclass.ConfigManager.prototype
+     * @memberOf Subclass.SettingsManager.prototype
      *
      * @throws {Error}
      *      Throws error if trying to change value after the module became ready
@@ -34,7 +34,7 @@ Subclass.Parameter.Extension.ConfigManagerExtension = function() {
      * @example
      * ...
      *
-     * var moduleConfigs = moduleInst.getConfigManager();
+     * var moduleConfigs = moduleInst.getSettingsManager();
      *
      * // setting new parameters
      * moduleConfigs.setParameters({
@@ -50,7 +50,7 @@ Subclass.Parameter.Extension.ConfigManagerExtension = function() {
      * moduleInst.getParameter("param3"); // returns { a: 10, b: "str" }
      * ...
      */
-    ConfigManager.prototype.setParameters = function(parameters)
+    SettingsManager.prototype.setParameters = function(parameters)
     {
         this.checkModuleIsReady();
 
@@ -80,11 +80,11 @@ Subclass.Parameter.Extension.ConfigManagerExtension = function() {
      * Returns all registered parameters in the form in which they were set
      *
      * @method getParameters
-     * @memberOf Subclass.ConfigManager.prototype
+     * @memberOf Subclass.SettingsManager.prototype
      *
      * @returns {Object}
      */
-    ConfigManager.prototype.getParameters = function()
+    SettingsManager.prototype.getParameters = function()
     {
         var parameters = this.getModule().getParameterManager().getParameters();
         var parameterDefinitions = {};
@@ -105,12 +105,12 @@ Subclass.Parameter.Extension.ConfigManagerExtension = function() {
 
     Subclass.Module.onInitializeBefore(function(evt, module)
     {
-        ConfigManager = Subclass.Tools.buildClassConstructor(ConfigManager);
+        SettingsManager = Subclass.Tools.buildClassConstructor(SettingsManager);
 
-        if (!ConfigManager.hasExtension(ConfigManagerExtension)) {
-            ConfigManager.registerExtension(ConfigManagerExtension);
+        if (!SettingsManager.hasExtension(SettingsManagerExtension)) {
+            SettingsManager.registerExtension(SettingsManagerExtension);
         }
     });
 
-    return ConfigManagerExtension;
+    return SettingsManagerExtension;
 }();
