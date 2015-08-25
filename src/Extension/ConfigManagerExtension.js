@@ -34,10 +34,10 @@ Subclass.Parameter.Extension.SettingsManagerExtension = function() {
      * @example
      * ...
      *
-     * var moduleConfigs = moduleInst.getSettingsManager();
+     * var moduleSetting = moduleInst.getSettingsManager();
      *
      * // setting new parameters
-     * moduleConfigs.setParameters({
+     * moduleSettings.setParameters({
      *      param1: "string value",
      *      param2: 1000,
      *      param3: { a: 10, b: "str" },

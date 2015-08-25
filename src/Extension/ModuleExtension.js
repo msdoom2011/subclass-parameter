@@ -2,18 +2,18 @@
  * @class
  * @constructor
  *
- * Module configs:
+ * Module settings:
  *
  * parameters   {Object}    opt     Object with parameters which can
  *                                  be used by all over module.
  *
  *                                  It is useful for defining some
- *                                  configuration parameters of
+ *                                  setting parameters of
  *                                  application, i.e. debug mode.
  *
  *                                  Example:
  *
- *                                  var moduleConfigs = {
+ *                                  var moduleSettings = {
  *                                    ...
  *                                    parameters: {
  *                                      mode: "dev",

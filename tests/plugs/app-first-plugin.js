@@ -5,7 +5,7 @@ var appFirstPlugin = Subclass.createModule('appFirstPlugin', {
     }
 });
 
-appFirstPlugin.onConfig(function() {
+appFirstPlugin.onSetup(function() {
     var parameterManager = this.getParameterManager();
     parameterManager.renameParameter('mode_bad_name', 'mode');
 });
