@@ -28,13 +28,19 @@ Subclass.Parser.ParameterParser = function()
         {
             if (typeof string == 'string' && string.match(/%.+%/i)) {
                 var parameterManager = this.getModule().getParameterManager();
-                var regex = /%([^%]+)%/i;
+                var regExpStr = "%([^%]+)%";
+                var regExp = new RegExp(regExpStr, "i");
 
-                while (regex.test(string)) {
-                    var parameterName = this.getParserManager().parse(string.match(regex)[1]);
-                    var parameterValue = parameterManager.getParameter(parameterName);
+                if (!(new RegExp("^" + regExpStr + "$", "i")).test(string)) {
+                    while (regExp.test(string)) {
+                        var parameterName = string.match(regExp)[1];
+                        var parameterValue = parameterManager.getParameter(parameterName);
 
-                    string = string.replace(regex, parameterValue);
+                        string = string.replace(regExp, parameterValue);
+                    }
+                } else {
+                    parameterName = string.match(regExp)[1];
+                    string = parameterManager.getParameter(parameterName);
                 }
             }
             return string;
