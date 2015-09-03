@@ -18,5 +18,13 @@ Subclass.registerPlugin(function() {
         return "SubclassParameter";
     };
 
+    /**
+     * @inheritDoc
+     */
+    ParameterPlugin.getDependencies = function()
+    {
+        return ['SubclassParser'];
+    };
+
     return ParameterPlugin;
 }());
