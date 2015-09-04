@@ -19,6 +19,8 @@ describe("Checking parameters", function() {
     });
 
     it ("values", function() {
+        var inst = app.createInstance();
+
         expect(app.getParameter('mode')).toBe('prod');
         expect(app.getParameter('foo')).toBe(false);
         expect(app.getParameter('bar')).toBe(30);
@@ -26,6 +28,14 @@ describe("Checking parameters", function() {
         expect(app.getParameter('param2')).toBe(20);
         expect(app.getParameter('param3')).toBe(35);
         expect(app.getParameter('forth')).toBe(true);
+
+        expect(inst.getParser().parse('My mode is %mode%')).toBe('My mode is prod');
+        expect(inst.getParser().parse('My foo has %foo% value')).toBe('My foo has false value');
+        expect(inst.getParser().parse('%bar%')).toBe(30);
+        expect(inst.getParser().parse('%param1%')).toBe(10);
+        expect(inst.getParser().parse('%param2%')).toBe(20);
+        expect(inst.getParser().parse('%param3%')).toBe(35);
+        expect(inst.getParser().parse('%forth%')).toBe(true);
     });
 
     it ("not allowed actions", function() {
