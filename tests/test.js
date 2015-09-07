@@ -20,6 +20,7 @@ describe("Checking parameters", function() {
 
     it ("values", function() {
         var inst = app.createInstance();
+        var container = inst.getParameterContainer();
 
         expect(app.getParameter('mode')).toBe('prod');
         expect(app.getParameter('foo')).toBe(false);
@@ -28,6 +29,14 @@ describe("Checking parameters", function() {
         expect(app.getParameter('param2')).toBe(20);
         expect(app.getParameter('param3')).toBe(35);
         expect(app.getParameter('forth')).toBe(true);
+
+        expect(container.get('mode')).toBe('prod');
+        expect(container.get('foo')).toBe(false);
+        expect(container.get('bar')).toBe(30);
+        expect(container.get('param1')).toBe(10);
+        expect(container.get('param2')).toBe(20);
+        expect(container.get('param3')).toBe(35);
+        expect(container.get('forth')).toBe(true);
 
         expect(inst.getParser().parse('My mode is %mode%')).toBe('My mode is prod');
         expect(inst.getParser().parse('My foo has %foo% value')).toBe('My foo has false value');
