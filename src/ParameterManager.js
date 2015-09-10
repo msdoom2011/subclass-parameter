@@ -129,7 +129,7 @@ Subclass.Parameter.ParameterManager = (function()
     /**
      * Returns module names where is defined parameter with specified name.<br /><br />
      *
-     * @method getParameterLocations
+     * @method getLocations
      * @memberOf Subclass.Parameter.ParameterManager.prototype
      *
      * @param {string} parameterName
@@ -137,7 +137,7 @@ Subclass.Parameter.ParameterManager = (function()
      *
      * @returns {string[]}
      */
-    ParameterManager.prototype.getParameterLocations = function(parameterName)
+    ParameterManager.prototype.getLocations = function(parameterName)
     {
         var mainModule = this.getModule().getRoot();
         var locations = [];
@@ -150,7 +150,7 @@ Subclass.Parameter.ParameterManager = (function()
         moduleStorage.eachModule(function(module) {
             var parameterManager = module.getParameterManager();
 
-            if (parameterManager.issetParameter(parameterName, true)) {
+            if (parameterManager.isset(parameterName, true)) {
                 locations.push(module.getName());
             }
             if (module == mainModule) {
@@ -163,7 +163,7 @@ Subclass.Parameter.ParameterManager = (function()
                 for (var i = 0; i < plugins.length; i++) {
                     var subPlugin = plugins[i];
                     var subPluginManager = subPlugin.getParameterManager();
-                    var subPluginLocations = subPluginManager.getParameterLocations(parameterName, subPlugin);
+                    var subPluginLocations = subPluginManager.getLocations(parameterName, subPlugin);
 
                     locations = locations.concat(subPluginLocations);
                 }
@@ -178,7 +178,7 @@ Subclass.Parameter.ParameterManager = (function()
      *
      * Creates instance of {@link Subclass.Parameter.Parameter}
      *
-     * @method registerParameter
+     * @method register
      * @memberOf Subclass.Parameter.ParameterManager.prototype
      *
      * @throws {Error}
@@ -191,7 +191,7 @@ Subclass.Parameter.ParameterManager = (function()
      * @param {*} paramValue
      *      The value of the registered parameter
      */
-    ParameterManager.prototype.registerParameter = function(paramName, paramValue)
+    ParameterManager.prototype.register = function(paramName, paramValue)
     {
         if (this.getModule().isReady()) {
             Subclass.Error.create('Can\'t register new parameter when module is ready.');
@@ -206,7 +206,7 @@ Subclass.Parameter.ParameterManager = (function()
     /**
      * Renames parameter with old name to the new one
      *
-     * @method renameParameter
+     * @method rename
      * @memberOf Subclass.Parameter.ParameterManager.prototype
      *
      * @param {string} nameOld
@@ -215,9 +215,9 @@ Subclass.Parameter.ParameterManager = (function()
      * @param {string} nameNew
      *      The new parameter name
      */
-    ParameterManager.prototype.renameParameter = function(nameOld, nameNew)
+    ParameterManager.prototype.rename = function(nameOld, nameNew)
     {
-        if (!this.issetParameter(nameOld)) {
+        if (!this.isset(nameOld)) {
             Subclass.Error.create('Trying to rename non existent parameter "' + nameOld + '".');
         }
         if (!nameNew || typeof nameNew != 'string') {
@@ -228,7 +228,7 @@ Subclass.Parameter.ParameterManager = (function()
                 .apply()
             ;
         }
-        var moduleNames = this.getParameterLocations(nameOld);
+        var moduleNames = this.getLocations(nameOld);
 
         for (var i = 0; i < moduleNames.length; i++) {
             var module = Subclass.getModule(moduleNames[i]);
@@ -239,7 +239,7 @@ Subclass.Parameter.ParameterManager = (function()
             if (!parameter) {
                 Subclass.Error.create(
                     'The work of method ' +
-                    '"Subclass.Parameter.ParameterManager#getParameterLocations" is incorrect.'
+                    '"Subclass.Parameter.ParameterManager#getLocations" is incorrect.'
                 );
             }
             delete parameters[nameOld];
@@ -251,7 +251,7 @@ Subclass.Parameter.ParameterManager = (function()
     /**
      * Sets parameter value
      *
-     * @method setParameter
+     * @method set
      * @memberOf Subclass.Parameter.ParameterManager.prototype
      *
      * @throws {Error}
@@ -265,12 +265,12 @@ Subclass.Parameter.ParameterManager = (function()
      * @param {*} paramValue
      *      The new value of the parameter
      */
-    ParameterManager.prototype.setParameter = function(paramName, paramValue)
+    ParameterManager.prototype.set = function(paramName, paramValue)
     {
         if (this.getModule().isReady()) {
             Subclass.Error.create('Can\'t change parameter value when module is ready.');
         }
-        if (!this.issetParameter(paramName)) {
+        if (!this.isset(paramName)) {
             Subclass.Error.create('Parameter with name "' + paramName + '" not exists.');
         }
         this._parameters[paramName].setValue(paramValue);
@@ -279,7 +279,7 @@ Subclass.Parameter.ParameterManager = (function()
     /**
      * Returns parameter value
      *
-     * @method getParameter
+     * @method get
      * @memberOf Subclass.Parameter.ParameterManager.prototype
      *
      * @throws {Error}
@@ -290,9 +290,9 @@ Subclass.Parameter.ParameterManager = (function()
      *
      * @return {*}
      */
-    ParameterManager.prototype.getParameter = function(paramName)
+    ParameterManager.prototype.get = function(paramName)
     {
-        if (!this.issetParameter(paramName)) {
+        if (!this.isset(paramName)) {
             Subclass.Error.create('Parameter with name "' + paramName + '" not exists.');
         }
         return this.getParameters()[paramName].getValue();
@@ -301,7 +301,7 @@ Subclass.Parameter.ParameterManager = (function()
     /**
      * Checks whether parameter with passed name is exists
      *
-     * @method issetParameter
+     * @method isset
      * @memberOf Subclass.Parameter.ParameterManager.prototype
      *
      * @param {string} paramName
@@ -313,7 +313,7 @@ Subclass.Parameter.ParameterManager = (function()
      *
      * @returns {boolean}
      */
-    ParameterManager.prototype.issetParameter = function(paramName, privateParameters)
+    ParameterManager.prototype.isset = function(paramName, privateParameters)
     {
         return !!this.getParameters(privateParameters)[paramName];
     };

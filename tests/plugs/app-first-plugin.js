@@ -7,6 +7,6 @@ var appFirstPlugin = Subclass.createModule('appFirstPlugin', {
 
 appFirstPlugin.onSetup(function() {
     var parameterManager = this.getParameterManager();
-    parameterManager.renameParameter('mode_bad_name', 'mode');
+    parameterManager.rename('mode_bad_name', 'mode');
 });
 

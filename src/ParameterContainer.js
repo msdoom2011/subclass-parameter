@@ -80,7 +80,7 @@ Subclass.Parameter.ParameterContainer = function()
          */
         get: function(paramName)
         {
-            return this.getParameterManager().getParameter(paramName);
+            return this.getParameterManager().get(paramName);
         },
 
         /**
@@ -91,7 +91,7 @@ Subclass.Parameter.ParameterContainer = function()
          */
         isset: function(paramName)
         {
-            return this.getParameterManager().issetParameter(paramName);
+            return this.getParameterManager().isset(paramName);
         }
     };
 

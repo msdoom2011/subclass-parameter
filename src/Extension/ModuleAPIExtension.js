@@ -30,14 +30,14 @@ Subclass.Parameter.Extension.ModuleAPIExtension = function() {
     };
 
     /**
-     * The same as the {@link Subclass.Parameter.ParameterManager#registerParameter}
+     * The same as the {@link Subclass.Parameter.ParameterManager#register}
      *
-     * @method registerService
+     * @method registerParameter
      * @memberOf Subclass.ModuleAPI.prototype
      */
     ModuleAPI.prototype.registerParameter = function()
     {
-        return this.getModule().getParameterManager().registerParameter.apply(
+        return this.getModule().getParameterManager().register.apply(
             this.getModule().getParameterManager(),
             arguments
         );
@@ -65,21 +65,21 @@ Subclass.Parameter.Extension.ModuleAPIExtension = function() {
      */
     ModuleAPI.prototype.setParameter = function()
     {
-        return this.getModule().getParameterManager().setParameter.apply(
+        return this.getModule().getParameterManager().set.apply(
             this.getModule().getParameterManager(),
             arguments
         );
     };
 
     /**
-     * The same as the {@link Subclass.Parameter.ParameterManager#getParameter}
+     * The same as the {@link Subclass.Parameter.ParameterManager#get}
      *
      * @method getParameter
      * @memberOf Subclass.ModuleAPI.prototype
      */
     ModuleAPI.prototype.getParameter = function()
     {
-        return this.getModule().getParameterManager().getParameter.apply(
+        return this.getModule().getParameterManager().get.apply(
             this.getModule().getParameterManager(),
             arguments
         );
@@ -93,7 +93,7 @@ Subclass.Parameter.Extension.ModuleAPIExtension = function() {
      */
     ModuleAPI.prototype.issetParameter = function()
     {
-        return this.getModule().getParameterManager().issetParameter.apply(
+        return this.getModule().getParameterManager().isset.apply(
             this.getModule().getParameterManager(),
             arguments
         );

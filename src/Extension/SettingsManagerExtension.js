@@ -69,7 +69,7 @@ Subclass.Parameter.Extension.SettingsManagerExtension = function() {
             if (!parameters.hasOwnProperty(paramName)) {
                 continue;
             }
-            parameterManager.registerParameter(
+            parameterManager.register(
                 paramName,
                 parameters[paramName]
             );

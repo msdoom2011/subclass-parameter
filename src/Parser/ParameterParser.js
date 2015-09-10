@@ -34,13 +34,13 @@ Subclass.Parser.ParameterParser = function()
                 if (!(new RegExp("^" + regExpStr + "$", "i")).test(string)) {
                     while (regExp.test(string)) {
                         var parameterName = string.match(regExp)[1];
-                        var parameterValue = parameterManager.getParameter(parameterName);
+                        var parameterValue = parameterManager.get(parameterName);
 
                         string = string.replace(regExp, parameterValue);
                     }
                 } else {
                     parameterName = string.match(regExp)[1];
-                    string = parameterManager.getParameter(parameterName);
+                    string = parameterManager.get(parameterName);
                 }
             }
             return string;

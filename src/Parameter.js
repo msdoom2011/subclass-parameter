@@ -45,7 +45,7 @@ Subclass.Parameter.Parameter = (function()
      * Sets name of parameter.
      *
      * It is actual only at init stage. If you want to rename parameter use
-     * the {@link Subclass.Parameter.ParameterManager#renameParameter} method
+     * the {@link Subclass.Parameter.ParameterManager#rename} method
      *
      * @throws {Error}
      *      Throws error if specified invalid name of parameter
