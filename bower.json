@@ -1,11 +1,43 @@
 {
-  "name": "SubclassParameter",
+  "name": "subclass-parameter",
   "version": "0.1.0",
   "authors": [
-    "Dmitriy Osipishin | <msdoom2011@gmail.com>"
+    "Dmitry Osipishin | <msdoom2011@gmail.com>"
   ],
   "description": "The plugin for SubclassJS framework which brings ability to define parameters that will be available all over your SubclassJS application.",
-  "main": "Gruntfile.js",
+  "main": "release/subclass-parameter.js",
   "license": "MIT",
-  "private": true
+  "keywords": [
+    "subclass",
+    "parameter",
+    "framework",
+    "js",
+    "class",
+    "inheritance",
+    "abstract class",
+    "mixin",
+    "trait",
+    "structure",
+    "autoloading",
+    "patterns",
+    "OOP"
+  ],
+  "ignore": [
+    "doc",
+    "node_modules",
+    "src",
+    "tests",
+    "**/.*",
+    "Gruntfile.config.json",
+    "Gruntfile.js",
+    "karma.config.js",
+    "package.json",
+    "TODO.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "subclass-framework": "",
+    "subclass-instance": "",
+    "subclass-parser": ""
+  }
 }
